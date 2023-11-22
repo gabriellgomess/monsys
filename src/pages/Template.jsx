@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Layout, Menu, Button, Divider, Avatar } from 'antd';
+import { Layout, Menu, Button, Divider, Avatar, Tooltip } from 'antd';
 import { DesktopOutlined, MenuOutlined } from '@ant-design/icons';
 import { useMediaQuery } from 'react-responsive';
 import Logo from "../assets/site-logo.png";
@@ -15,6 +15,7 @@ import Investimentos from './Investimentos';
 import Perfil from './Perfil';
 import Euro from '../assets/european-union.png';
 import Dolar from '../assets/united-states.png';
+import BitCoin from '../assets/bitcoin-logo.png';
 
 
 const Template = (props) => {
@@ -30,7 +31,7 @@ const Template = (props) => {
   };
 
   const getCotacoes = async () => {
-    const response = await axios.get('https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL');
+    const response = await axios.get('https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL,BTC-BRL');
     console.log(response.data);
     setCotacoes(response.data);
   }
@@ -43,7 +44,7 @@ const Template = (props) => {
     }, 30000);
 
     return () => clearInterval(intervalId);
-  }, []); 
+  }, []);
 
   function getInitials(name) {
     const parts = name.split(' ');
@@ -75,17 +76,23 @@ const Template = (props) => {
                 <h3>Olá, {theUser.name}</h3>
               </div>
             )}
-            <div style={{ display: 'flex', marginRight: '15px' }}>
+            <div style={{ display: 'flex', marginRight: '15px', fontSize: '10px' }}>
               {cotacoes['USDBRL'] && (
-                <span style={{ marginRight: 20, display: 'flex', gap: '5px', alignItems: 'center' }}>
+                <span style={{ marginRight: 10, display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
                   <img width={20} src={Dolar} alt="" />
-                  <p>{cotacoes['USDBRL'].bid}</p>
+                  <p style={{ lineHeight: '1.6' }}>{parseFloat(cotacoes['USDBRL'].bid).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 4 })}</p>
                 </span>
               )}
               {cotacoes['EURBRL'] && (
-                <span style={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
+                <span style={{ marginRight: 10, display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
                   <img width={20} src={Euro} alt="" />
-                  {cotacoes['EURBRL'].bid}
+                  <p style={{ lineHeight: '1.6' }}>{parseFloat(cotacoes['EURBRL'].bid).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 4 })}</p>
+                </span>
+              )}
+              {cotacoes['BTCBRL'] && (
+                <span style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+                  <img width={20} src={BitCoin} alt="" />
+                  <p style={{ lineHeight: '1.6' }}>{parseFloat(cotacoes['BTCBRL'].bid).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
                 </span>
               )}
 
@@ -97,13 +104,19 @@ const Template = (props) => {
               {cotacoes['USDBRL'] && (
                 <span style={{ marginRight: 20, display: 'flex', gap: '5px', alignItems: 'center' }}>
                   <img width={20} src={Dolar} alt="" />
-                  <p>{cotacoes['USDBRL'].bid}</p>
+                  {parseFloat(cotacoes['USDBRL'].bid).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 4 })}
                 </span>
               )}
               {cotacoes['EURBRL'] && (
-                <span style={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
+                <span style={{ marginRight: 20, display: 'flex', gap: '5px', alignItems: 'center' }}>
                   <img width={20} src={Euro} alt="" />
-                  <p>{cotacoes['EURBRL'].bid}</p>
+                  {parseFloat(cotacoes['EURBRL'].bid).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 4 })}
+                </span>
+              )}
+              {cotacoes['BTCBRL'] && (
+                <span style={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
+                  <img width={20} src={BitCoin} alt="" />
+                  {parseFloat(cotacoes['BTCBRL'].bid).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
                 </span>
               )}
 
@@ -154,11 +167,13 @@ const Template = (props) => {
                 {theUser && (
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', height: '100%' }}>
                     {collapsed ? (
-                      <Avatar
-                        style={{
-                          backgroundColor: theme.token.colorPrimary,
-                        }}
-                      >{getInitials(theUser.name)}</Avatar>
+                      <Tooltip title={theUser.name} placement="right">
+                        <Avatar
+                          style={{
+                            backgroundColor: theme.token.colorPrimary,
+                          }}
+                        >{getInitials(theUser.name)}</Avatar>
+                      </Tooltip>
                     ) : (
                       <h3 style={{ lineHeight: '1', margin: '0' }}>Olá, {theUser.name}</h3>
                     )}

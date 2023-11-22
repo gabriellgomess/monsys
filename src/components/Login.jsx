@@ -77,7 +77,7 @@ function Login() {
       alignItems: isMobile ? 'center' : 'center',
       justifyContent: isMobile ? 'center' : 'end',
       width: '590px',
-      paddingRight: isMobile ? '0px' : '50px',      
+      paddingRight: isMobile ? '0px' : '50px',
     }}>
       {isMobile &&
         <img width={200} src={Logo} alt="" />
@@ -91,7 +91,7 @@ function Login() {
 
         }}
       >
-        <Form onFinish={submitForm} layout="vertical">
+        <Form onFinish={submitForm} layout="vertical" style={{display: 'flex', flexDirection: 'column', marginBottom: '10px' }}>
           <Form.Item label="E-mail">
             <Input
               shape="round"
@@ -110,9 +110,9 @@ function Login() {
             Entrar
           </Button>
         </Form>
-        {/* <Button shape="round" onClick={toggleNav} variant="outlined">
-        Cadastrar
-      </Button> */}
+        <Button shape="round" onClick={toggleNav} variant="outlined" style={{width: '100%'}}>
+          Cadastrar
+        </Button>
       </Card>
     </div>
 

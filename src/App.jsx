@@ -1,8 +1,9 @@
 import { useContext } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { ConfigProvider, Layout } from "antd"; 
+import { ConfigProvider, Layout } from "antd";
 import MyContextProvider, { MyContext } from "./contexts/MyContext";
 import ptBR from "antd/locale/pt_BR"
+import { StyleProvider } from '@ant-design/cssinjs';
 
 // Pages
 import Home from "./pages/Home";
@@ -39,25 +40,27 @@ const theme = {
 
 const App = () => {
   return (
-    <ConfigProvider theme={theme} locale={ptBR}>
-    <MyContextProvider>
-      <Layout style={{ minHeight: '100vh' }}>
-        <Content style={{display: "flex", justifyContent: "center"}}>          
-            <Routes>
-              <Route path={`${import.meta.env.VITE_REACT_APP_PATH}`} element={<Home />} />
-              <Route
-                path={`${import.meta.env.VITE_REACT_APP_PATH}*`}
-                element={
-                  <WithAuthentication>
-                    <Template theme={theme} />
-                  </WithAuthentication>
-                }
-              />
-            </Routes>          
-        </Content>
-      </Layout>
-    </MyContextProvider>
-    </ConfigProvider>
+    <StyleProvider hashPriority="high">
+      <ConfigProvider theme={theme} locale={ptBR}>
+        <MyContextProvider>
+          <Layout style={{ minHeight: '100vh' }}>
+            <Content style={{ display: "flex", justifyContent: "center" }}>
+              <Routes>
+                <Route path={`${import.meta.env.VITE_REACT_APP_PATH}`} element={<Home />} />
+                <Route
+                  path={`${import.meta.env.VITE_REACT_APP_PATH}*`}
+                  element={
+                    <WithAuthentication>
+                      <Template theme={theme} />
+                    </WithAuthentication>
+                  }
+                />
+              </Routes>
+            </Content>
+          </Layout>
+        </MyContextProvider>
+      </ConfigProvider>
+    </StyleProvider>
   );
 };
 

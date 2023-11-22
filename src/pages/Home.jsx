@@ -55,9 +55,27 @@ function Home() {
     }
     else {
         return (
-            <div>
+            
+            <>
+            {!isMobile ?
+                <div style={{
+                    height: '100vh',
+                    width: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'end',
+                    backgroundImage: `url(${ImageBackground})`,
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: '88%',
+                    backgroundSize: 'cover'
+                }}>
+                    <Register />
+                </div>
+                :
                 <Register />
-            </div>
+            }
+
+        </>
 
         );
     }
