@@ -9,9 +9,6 @@ import { StyleProvider } from '@ant-design/cssinjs';
 import Home from "./pages/Home";
 import Template from "./pages/Template";
 
-//Components
-import Header from "./components/Header";
-
 // Layout components
 const { Content } = Layout;
 
@@ -34,6 +31,7 @@ const theme = {
     colorInfo: "#e9434b",
     colorTextBase: "#313131",
     colorBgMenus: "#F5F6F9",
+    colorBgMenusDark: "#323232",
     borderRadius: '15px'
   },
 };
