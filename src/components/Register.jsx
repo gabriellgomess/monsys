@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { Form, Input, Button, Typography, Card } from "antd";
 import { MyContext } from "../contexts/MyContext";
 import { useMediaQuery } from 'react-responsive';
-
+import Logo from "../assets/site-logo.png";
 
 function Register() {
   const { toggleNav, registerUser } = useContext(MyContext);
@@ -71,7 +71,7 @@ function Register() {
           width: 350,
         }}
       >
-        <Form onFinish={() => submitForm(state.userInfo)} layout="vertical" style={{display: 'flex', flexDirection: 'column', marginBottom: '10px' }}>
+        <Form onFinish={() => submitForm(state.userInfo)} layout="vertical" style={{ display: 'flex', flexDirection: 'column', marginBottom: '10px' }}>
           <Form.Item label="Nome">
             <Input
               name="name"
@@ -101,13 +101,13 @@ function Register() {
             />
           </Form.Item>
           {errorMsg}
-          {successMsg}          
-            <Button shape="round" type="primary" htmlType="submit">
-              Cadastrar
-            </Button>          
+          {successMsg}
+          <Button shape="round" type="primary" htmlType="submit">
+            Cadastrar
+          </Button>
         </Form>
-        <div style={{width: '100%'}}>
-          <Button  style={{width: '100%'}} shape="round" variant="outlined" onClick={toggleNav}>Entrar</Button>
+        <div style={{ width: '100%' }}>
+          <Button style={{ width: '100%' }} shape="round" variant="outlined" onClick={toggleNav}>Entrar</Button>
         </div>
       </Card>
     </div>

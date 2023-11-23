@@ -12,8 +12,12 @@ import axios from 'axios';
 const { Header, Sider, Content, Footer } = Layout;
 const { Title } = Typography;
 
+import Inicio from './Inicio';
 import Investimentos from './Investimentos';
+import Investir from './Investir';
 import Perfil from './Perfil';
+
+
 import TemplateDesktopHeader from '../components/TemplateDesktopHeader';
 import TemplateMobileHeader from '../components/TemplateMobileHeader';
 import TemplateSubHeaderMobile from '../components/TemplateSubHeaderMobile';
@@ -66,8 +70,18 @@ const Template = (props) => {
     }
   };
 
+  useEffect(() => {
+    const handleResize = () => {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+
   return (
-    <Layout style={{ minHeight: '100vh' }}>
+    <Layout style={{ height: 'calc(var(--vh, 1vh) * 100)' }}>
       <Header style={{ background: theme.token.colorBgMenusDark, padding: 0, color: '#fff', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: isMobile ? '90px' : '70px' }}>
         {isMobile ? (
           <>
@@ -92,13 +106,14 @@ const Template = (props) => {
         )}
       </Header>
 
-      <Layout>        
+      <Layout>
         {isMobile ? (
           <TemplateMobileSider
             theme={theme}
             collapsed={collapsed}
             toggleMenu={toggleMenu}
             handleLinkClick={handleLinkClick}
+            logoutUser={logoutUser}
           />
         ) : (
           <TemplateDesktopSider
@@ -112,9 +127,11 @@ const Template = (props) => {
         )}
         <Layout>
           <Content>
-            <>              
+            <>
               <Routes>
-                <Route path={`investimentos`} element={<Investimentos cotacoes={cotacoes} theUser={theUser} isMobile={isMobile} collapsed={collapsed} theme={theme} />} />
+                <Route path={`inicio`} element={<Inicio cotacoes={cotacoes} theUser={theUser} isMobile={isMobile} collapsed={collapsed} theme={theme} />} />
+                <Route path={`investimentos`} element={<Investimentos />} />
+                <Route path={`investir`} element={<Investir />} />
                 <Route path={`perfil`} element={<Perfil />} />
               </Routes>
             </>

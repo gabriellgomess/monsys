@@ -91,7 +91,7 @@ function Login() {
 
         }}
       >
-        <Form onFinish={submitForm} layout="vertical" style={{display: 'flex', flexDirection: 'column', marginBottom: '10px' }}>
+        <Form onFinish={submitForm} layout="vertical" style={{ display: 'flex', flexDirection: 'column', marginBottom: '10px' }}>
           <Form.Item label="E-mail">
             <Input
               shape="round"
@@ -110,7 +110,7 @@ function Login() {
             Entrar
           </Button>
         </Form>
-        <Button shape="round" onClick={toggleNav} variant="outlined" style={{width: '100%'}}>
+        <Button shape="round" onClick={toggleNav} variant="outlined" style={{ width: '100%' }}>
           Cadastrar
         </Button>
       </Card>

@@ -41,7 +41,7 @@ const App = () => {
     <StyleProvider hashPriority="high">
       <ConfigProvider theme={theme} locale={ptBR}>
         <MyContextProvider>
-          <Layout style={{ minHeight: '100vh' }}>
+          <Layout>
             <Content style={{ display: "flex", justifyContent: "center" }}>
               <Routes>
                 <Route path={`${import.meta.env.VITE_REACT_APP_PATH}`} element={<Home />} />

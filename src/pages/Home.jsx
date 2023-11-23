@@ -23,7 +23,7 @@ function Home() {
         // If user Logged in
         if (isAuth) {
             // Navigate to Dashboard
-            navigate(`${import.meta.env.VITE_REACT_APP_PATH}investimentos`);
+            navigate(`${import.meta.env.VITE_REACT_APP_PATH}inicio`);
         }
     }, [isAuth, navigate]);
 
@@ -40,7 +40,7 @@ function Home() {
                         justifyContent: 'end',
                         backgroundImage: `url(${ImageBackground})`,
                         backgroundRepeat: 'no-repeat',
-                        backgroundPosition: '88%',
+                        backgroundPosition: '75%',
                         backgroundSize: 'cover'
                     }}>
                         <Login />
@@ -55,27 +55,27 @@ function Home() {
     }
     else {
         return (
-            
-            <>
-            {!isMobile ?
-                <div style={{
-                    height: '100vh',
-                    width: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'end',
-                    backgroundImage: `url(${ImageBackground})`,
-                    backgroundRepeat: 'no-repeat',
-                    backgroundPosition: '88%',
-                    backgroundSize: 'cover'
-                }}>
-                    <Register />
-                </div>
-                :
-                <Register />
-            }
 
-        </>
+            <>
+                {!isMobile ?
+                    <div style={{
+                        height: '100vh',
+                        width: '100%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'end',
+                        backgroundImage: `url(${ImageBackground})`,
+                        backgroundRepeat: 'no-repeat',
+                        backgroundPosition: '75%',
+                        backgroundSize: 'cover'
+                    }}>
+                        <Register />
+                    </div>
+                    :
+                    <Register />
+                }
+
+            </>
 
         );
     }

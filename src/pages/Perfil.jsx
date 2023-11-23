@@ -1,10 +1,11 @@
+import { Typography } from "antd"
+const { Title } = Typography
 const Perfil = () => {
     return (
-        <div>
-            <h1>Perfil</h1>
+        <div style={{width: '90%', margin: '30px auto'}}>
+            <Title>Perfil</Title>
         </div>
     )
-
 }
 
-export default Perfil;
+export default Perfil
