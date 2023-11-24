@@ -50,7 +50,7 @@ const TemplateDesktopSider = (props) => {
                             <Link to={`investir`}>Investir</Link>
                         </Menu.Item>
                         <Divider style={{ marginTop: '18px' }} />
-                        <Menu.Item style={{ position: 'absolute', bottom: '76px', left: '-4px', textAlign: 'center', width: '100%', borderRadius: '0' }} key="4" icon={<FontAwesomeIcon icon={faUser} />}>
+                        <Menu.Item key="4" icon={<FontAwesomeIcon icon={faUser} />}>
                             <Link to={`perfil`}>Minha Conta</Link>
                         </Menu.Item>
                     </Menu>
