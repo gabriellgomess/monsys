@@ -113,7 +113,7 @@ const Investimentos = () => {
     const gapValue = isMobile ? '0px' : '10px';
     const pageSizeValue = isMobile ? 4 : 6;
 
-    const total = filteredData.reduce((total, item) => total + item.valor, 0);
+    
     return (
         <div style={{width: '90%', margin: '30px auto'}}>
             <Title>Investimentos</Title>
