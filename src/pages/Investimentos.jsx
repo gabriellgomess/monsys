@@ -33,59 +33,62 @@ const Investimentos = () => {
             debenture: 'Debenture 1',
             serie: 'Série #8',
             dataInicial: '18/01/2021',
-            valor: 'R$ 22.000,00',
+            valor: 22000,           
+   
         },
         {
             key: '2',
             debenture: 'Debenture 2',
             serie: 'Série #8',
             dataInicial: '12/05/2022',
-            valor: 'R$ 12.500,00',
+            valor: 12500,
         },
         {
             key: '3',
             debenture: 'Debenture 3',
             serie: 'Série #14',
             dataInicial: '23/04/2022',
-            valor: 'R$ 36.000,00',
+            valor: 36000,
         },
         {
             key: '4',
             debenture: 'Debenture 1',
             serie: 'Série #14',
             dataInicial: '16/11/2021',
-            valor: 'R$ 11.000,00',
+            valor: 11000,
         },
         {
             key: '5',
             debenture: 'Debenture 2',
             serie: 'Série #8',
             dataInicial: '18/01/2021',
-            valor: 'R$ 22.000,00',
+            valor: 22000,
         },
         {
             key: '6',
             debenture: 'Debenture 3',
             serie: 'Série #8',
             dataInicial: '12/05/2022',
-            valor: 'R$ 12.500,00',
+            valor: 12500,
         },
         {
             key: '7',
             debenture: 'Debenture 1',
             serie: 'Série #14',
             dataInicial: '23/04/2022',
-            valor: 'R$ 36.000,00',
+            valor: 36000,
         },
         {
             key: '8',
             debenture: 'Debenture 2',
             serie: 'Série #14',
             dataInicial: '16/11/2021',
-            valor: 'R$ 11.000,00',
+            valor: 18000,
         },
         
     ];
+
+    const total = data.reduce((sum, item) => sum + item.valor, 0);
 
     const widthValue = isMobile ? '100%' : '60%';
     const directionValue = isMobile ? 'column' : 'row';
@@ -108,6 +111,10 @@ const Investimentos = () => {
                 </div>
                 <Button type="primary" shape="round" >Buscar</Button>    
             </Form>
+            <div style={{width: '100%', display: 'flex', justifyContent: 'end'}}>
+               <Text>Total em investimentos: {total.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</Text> 
+            </div>
+            
             <Table 
                 style={{marginTop: '30px'}} 
                 columns={columns} 
