@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { MyContext } from '../contexts/MyContext'
 import { useNavigate } from 'react-router-dom'
 import { useMediaQuery } from 'react-responsive';
@@ -7,6 +7,8 @@ const { Title, Text } = Typography;
 
 const Investimentos = () => {
     const isMobile = useMediaQuery({ maxWidth: 767 });
+    
+    const [filters, setFilters] = useState({ debenture: '', dataInicial: '' });
 
     const columns = [
         {
@@ -87,6 +89,22 @@ const Investimentos = () => {
         
     ];
 
+    const [filteredData, setFilteredData] = useState(data);
+
+    // Função para atualizar os filtros e aplicar a filtragem
+    const handleFilter = (values) => {
+        console.log(values)
+        const { debenture, dataInicial } = values;
+        setFilters(values); // Atualiza os valores dos filtros
+
+        // Aplica a filtragem
+        const newData = data.filter(item => {
+            return (debenture ? item.debenture.includes(debenture) : true) &&
+                   (dataInicial ? item.dataInicial === dataInicial : true);
+        });
+        setFilteredData(newData); // Atualiza os dados filtrados
+    };
+
     const widthValue = isMobile ? '100%' : '60%';
     const directionValue = isMobile ? 'column' : 'row';
     const gapValue = isMobile ? '0px' : '10px';
@@ -95,7 +113,7 @@ const Investimentos = () => {
     return (
         <div style={{width: '90%', margin: '30px auto'}}>
             <Title>Investimentos</Title>
-            <Form>
+            <Form onFinish={handleFilter}>
                 <div style={{display: 'flex', gap: gapValue, width: widthValue, flexDirection: directionValue}}>                    
                     <Form.Item style={{flexGrow: '1'}} name="debenture" rules={[{ required: true, message: 'Por favor, insira a debenture!' }]}>
                         <Text>Debênture</Text>
@@ -111,7 +129,7 @@ const Investimentos = () => {
             <Table 
                 style={{marginTop: '30px'}} 
                 columns={columns} 
-                dataSource={data}
+                dataSource={filteredData}
                 pagination={{ pageSize: pageSizeValue }} 
             />
         </div>
