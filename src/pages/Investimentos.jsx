@@ -2,13 +2,17 @@ import { useContext, useEffect, useState } from 'react'
 import { MyContext } from '../contexts/MyContext'
 import { useNavigate } from 'react-router-dom'
 import { useMediaQuery } from 'react-responsive';
-import { Typography, Form, Input, Table, Button } from "antd";
+import { Typography, Form, Input, Table, Button, Statistic, Card } from "antd";
 const { Title, Text } = Typography;
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 
 const Investimentos = () => {
     const isMobile = useMediaQuery({ maxWidth: 767 });
-    
+
     const [filters, setFilters] = useState({ debenture: '', dataInicial: '' });
+    const { dadosCliente } = useContext(MyContext);
 
     const columns = [
         {
@@ -29,70 +33,9 @@ const Investimentos = () => {
         },
     ];
 
-    const data = [
-        {
-            key: '1',
-            debenture: 'Debenture 1',
-            serie: 'Série #8',
-            dataInicial: '18/01/2021',
-            valor: 22000,           
-   
-        },
-        {
-            key: '2',
-            debenture: 'Debenture 2',
-            serie: 'Série #8',
-            dataInicial: '12/05/2022',
-            valor: 12500,
-        },
-        {
-            key: '3',
-            debenture: 'Debenture 3',
-            serie: 'Série #14',
-            dataInicial: '23/04/2022',
-            valor: 36000,
-        },
-        {
-            key: '4',
-            debenture: 'Debenture 1',
-            serie: 'Série #14',
-            dataInicial: '16/11/2021',
-            valor: 11000,
-        },
-        {
-            key: '5',
-            debenture: 'Debenture 2',
-            serie: 'Série #8',
-            dataInicial: '18/01/2021',
-            valor: 22000,
-        },
-        {
-            key: '6',
-            debenture: 'Debenture 3',
-            serie: 'Série #8',
-            dataInicial: '12/05/2022',
-            valor: 12500,
-        },
-        {
-            key: '7',
-            debenture: 'Debenture 1',
-            serie: 'Série #14',
-            dataInicial: '23/04/2022',
-            valor: 36000,
-        },
-        {
-            key: '8',
-            debenture: 'Debenture 2',
-            serie: 'Série #14',
-            dataInicial: '16/11/2021',
-            valor: 18000,
-        },
-        
-    ];
+    console.log(dadosCliente[0].aplicacoes);
 
-    const total = data.reduce((sum, item) => sum + item.valor, 0);
-
-    const [filteredData, setFilteredData] = useState(data);
+    const [filteredData, setFilteredData] = useState(dadosCliente[0].aplicacoes);
 
     // Função para atualizar os filtros e aplicar a filtragem
     const handleFilter = (values) => {
@@ -101,9 +44,9 @@ const Investimentos = () => {
         setFilters(values); // Atualiza os valores dos filtros
 
         // Aplica a filtragem
-        const newData = data.filter(item => {
+        const newData = dadosCliente[0].aplicacoes.filter(item => {
             return (debenture ? item.debenture.includes(debenture) : true) &&
-                   (dataInicial ? item.dataInicial === dataInicial : true);
+                (dataInicial ? item.dataInicial === dataInicial : true);
         });
         setFilteredData(newData); // Atualiza os dados filtrados
     };
@@ -111,35 +54,56 @@ const Investimentos = () => {
     const widthValue = isMobile ? '100%' : '60%';
     const directionValue = isMobile ? 'column' : 'row';
     const gapValue = isMobile ? '0px' : '10px';
-    const pageSizeValue = isMobile ? 4 : 6;
+    const pageSizeValue = isMobile ? 4 : 4;
 
-    
+
     return (
-        <div style={{width: '90%', margin: '30px auto'}}>
+        <div style={{ width: '90%', margin: '30px auto' }}>
             <Title>Investimentos</Title>
             <Form onFinish={handleFilter}>
-                <div style={{display: 'flex', gap: gapValue, width: widthValue, flexDirection: directionValue}}>                    
-                    <Form.Item style={{flexGrow: '1'}} name="debenture" rules={[{ required: true, message: 'Por favor, insira a debenture!' }]}>
+                <div style={{ display: 'flex', gap: gapValue, width: widthValue, flexDirection: directionValue }}>
+                    <Form.Item style={{ flexGrow: '1' }} name="debenture" rules={[{ required: true, message: 'Por favor, insira a debenture!' }]}>
                         <Text>Debênture</Text>
                         <Input placeholder="Debênture" shape="round" />
                     </Form.Item>
-                    <Form.Item style={{flexGrow: '1'}} name="dataInicial" rules={[{ required: true, message: 'Por favor, insira a data inicial!' }]}>
+                    <Form.Item style={{ flexGrow: '1' }} name="dataInicial" rules={[{ required: true, message: 'Por favor, insira a data inicial!' }]}>
                         <Text>Data Inicial</Text>
                         <Input type="date" placeholder="Data Inicial" shape="round" />
                     </Form.Item>
                 </div>
-                <Button type="primary" shape="round" >Buscar</Button>    
+                <Button type="primary" shape="round" >Buscar</Button>
             </Form>
-            <div style={{width: '100%', display: 'flex', justifyContent: 'end'}}>
-               <Text>Total em investimentos: {total.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</Text> 
-            </div>
             
-            <Table 
-                style={{marginTop: '30px'}} 
-                columns={columns} 
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '15px', marginTop: '30px' }}>
+                {dadosCliente[0].aplicacoes.map((item) => {
+                    return (
+                        <Card key={item.id} bordered={false}>
+                            <Statistic
+                                title={item.debenture}
+                                value={item.rendimento}
+                                precision={2}
+                                valueStyle={{
+                                    color: item.rendimento > 0 ? '#3f8600' : '#cf1322'
+                                }}
+                                prefix={item.rendimento > 0 ? <FontAwesomeIcon icon={faArrowUp} /> : <FontAwesomeIcon icon={faArrowDown} />}
+                                suffix="%"
+                            />
+                            <h4>{item.valor.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}</h4>
+                            <p>{item.serie}</p>
+                        </Card>
+                    )
+                }
+                )}
+            </div>
+            <Table
+                style={{ marginTop: '30px' }}
+                columns={columns}
                 dataSource={filteredData}
-                pagination={{ pageSize: pageSizeValue }} 
+                pagination={{ pageSize: pageSizeValue }}
             />
+
+
+
         </div>
     )
 }

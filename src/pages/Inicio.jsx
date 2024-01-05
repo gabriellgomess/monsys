@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { MyContext } from "../contexts/MyContext";
 import { Card, Typography, Divider, Button } from "antd";
 const { Title } = Typography;
 import TemplateSubHeaderMobile from "../components/TemplateSubHeaderMobile";
@@ -13,6 +14,7 @@ import {
 const Inicio = (props) => {
     const { isMobile, collapsed, cotacoes, theUser, theme } = props
     const [isValueVisible, setIsValueVisible] = useState(false);
+    const {dadosCliente} = useContext(MyContext);
 
     const toggleVisibility = () => {
         setIsValueVisible(!isValueVisible);
@@ -61,7 +63,7 @@ const Inicio = (props) => {
                     />
                 </div>
                 <Title style={{ margin: '0', color: theme.token.colorPrimary }} level={2}>
-                    {isValueVisible ? 'R$ 250.000,00' : '***********'}
+                    {isValueVisible ? dadosCliente[0].totalDebentures.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}) : '***********'}
                 </Title>
 
                 <Divider style={{border: '1px solid grey', margin: '60px 0'}} />
