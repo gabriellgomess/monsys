@@ -126,7 +126,7 @@ const Template = (props) => {
           />
         )}
         <Layout>
-          <Content>
+          <Content style={{overflow: 'auto'}}>
             <>
               <Routes>
                 <Route path={`inicio`} element={<Inicio cotacoes={cotacoes} theUser={theUser} isMobile={isMobile} collapsed={collapsed} theme={theme} />} />

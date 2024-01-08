@@ -74,7 +74,7 @@ const Investimentos = () => {
                 <Button type="primary" shape="round" >Buscar</Button>
             </Form>
             
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '15px', marginTop: '30px' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '15px', marginTop: '30px', justifyContent: 'center' }}>
                 {dadosCliente[0].aplicacoes.map((item) => {
                     return (
                         <Card key={item.id} bordered={false}>
